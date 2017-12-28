@@ -12,6 +12,11 @@ find_package(Eigen3 REQUIRED NO_MODULE)
 SET("CImg_DIR" "/home/adrian/Third-Party/CImg")
 #find_package(CImg REQUIRED)
 
-include_directories( ${CImg_DIR})
+SET(GCC_LINKAGE_FLAGS "-lpthread -lX11 -W -Wall")
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_LINKAGE_FLAGS}")
+SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_CXX_FLAGS}")
+
+include_directories(${CImg_DIR})
 add_executable(GasSimulation ${SOURCES} main.cpp)
 target_link_libraries(GasSimulation ${OpenCV_LIBS} Eigen3::Eigen)

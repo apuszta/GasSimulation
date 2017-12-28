@@ -5,6 +5,7 @@ class Dummy{
 	public:
 		Dummy();
 		void doSomething();
+		void foo();
 };
 
 #endif
