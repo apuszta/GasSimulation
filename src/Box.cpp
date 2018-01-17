@@ -1,6 +1,7 @@
 #include "../inc/Box.h"
 
-Box::Box(
+template<size_t Dim>
+Box<Dim>::Box(
 	const double xmin,
 	const double ymin,
 	const double zmin,
@@ -18,20 +19,59 @@ Box::Box(
 	// Intentionally NOOP
 }
 
-Box::~Box(){
+template<size_t Dim>
+Box<Dim>::~Box(){
 	// Intentionally NOOP
 }
 
-void Box::draw(cimg_library::CImg<unsigned char>& image) const{
+template<size_t Dim>
+void Box<Dim>::draw2D(cimg_library::CImg<float>& image) const{
 	unsigned char yellow[] = {255,215,0};
-	unsigned char black[] = {0,0,0};
+// 	unsigned char black[] = {0,0,0};
 	image.draw_rectangle(
-		(int)this->xmin,
-		(int)this->ymin,
-		(int)this->xmax,
-		(int)this->ymax,
+		this->xmin,
+		this->ymin,
+		this->xmax,
+		this->ymax,
 		yellow,
-		1.0,
-		0xFFFFFFFF
+		1.0//,
+// 		0xFFFFFFFF
 	);
+}
+
+template<size_t Dim>
+void Box<Dim>::draw3D(
+	cimg_library::CImg<float>& scenePoints,
+	cimg_library::CImgList<float>& scenePrimitives
+) const{
+// 	unsigned char yellow[] = {255,215,0};
+// 	unsigned char black[] = {0,0,0};
+	cimg_library::CImg<float> points(
+		3,8,1,1,
+		xmin,ymin,zmin,
+		xmax,ymin,zmin,
+		xmin,ymin,zmax,
+		xmin,ymax,zmin,
+		xmax,ymax,zmin,
+		xmax,ymin,zmax,
+		xmin,ymax,zmax,
+		xmax,ymax,zmax
+	);
+	points.permute_axes("yxzc");
+	cimg_library::CImgList<float> primitives(
+		12,2,1,1,1,
+		0,1,
+		0,2,
+		0,3,
+		1,4,
+		3,4,
+		4,7,
+		1,5,
+		2,5,
+		5,7,
+		2,6,
+		3,6,
+		6,7
+	);
+	scenePoints.append_object3d(scenePrimitives,points,primitives);
 }

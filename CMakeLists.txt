@@ -12,7 +12,7 @@ find_package(Eigen3 REQUIRED NO_MODULE)
 SET("CImg_DIR" "/home/adrian/Third-Party/CImg")
 #find_package(CImg REQUIRED)
 
-SET(GCC_LINKAGE_FLAGS "-lpthread -lX11 -W -Wall")
+SET(GCC_LINKAGE_FLAGS "-lpthread -lX11 -W -Wall -g")
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_LINKAGE_FLAGS}")
 SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_CXX_FLAGS}")

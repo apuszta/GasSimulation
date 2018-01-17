@@ -6,7 +6,8 @@
 /**
 ** @brief 
 **/
-class Box : public DrawableObject{
+template<size_t Dim>
+class Box : public DrawableObject<Dim>{
 	private:
 		double xmin;
 		double xmax;
@@ -29,7 +30,8 @@ class Box : public DrawableObject{
 // 		double getRadius() const;
 // 		double getCharge() const;
 
-		void draw(cimg_library::CImg<unsigned char>&) const override;
+		void draw2D(cimg_library::CImg<float>&) const override;
+		void draw3D(cimg_library::CImg<float>&,cimg_library::CImgList<float>&) const override;
 };
 
 #endif
