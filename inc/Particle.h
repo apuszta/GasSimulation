@@ -36,6 +36,8 @@ class Particle : public DrawableObject<Dim>{
 
 		void draw2D(cimg_library::CImg<float>&) const override;
 		void draw3D(cimg_library::CImg<float>&,cimg_library::CImgList<float>&) const override;
+
+		void step(const float dt) override;
 };
 
 #endif

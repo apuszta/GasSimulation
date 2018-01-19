@@ -34,8 +34,8 @@ void Box<Dim>::draw2D(cimg_library::CImg<float>& image) const{
 		this->xmax,
 		this->ymax,
 		yellow,
-		1.0//,
-// 		0xFFFFFFFF
+		1.0,
+		0xFFFFFFFF
 	);
 }
 

@@ -1,53 +1,66 @@
-#include "inc/Dummy.h"
 #include "inc/Particle.h"
 #include "inc/Box.h"
+#include "inc/Visualizer2D.h"
+#include "inc/Visualizer3D.h"
 
 #include <iostream>
 #include <vector>
+#include <random>
+#include <memory>
 
 using namespace std;
 using namespace cimg_library;
 
 int main(){
-	/*
-	* 2D section
-	*/
-	Particle<2> particle2d(1,5,-1);
-	particle2d.setPos(Eigen::Vector3d(50,120,0));
-	cout << "particle weight: " << particle2d.getWeight() << endl;
+	const size_t dimension = 3;
 
-	// display 2 yellow rectangles
-	Box<2> b1(10,10,10,100,200,30);
-	Box<2> b2(40,50,30,170,250,150);
+	const int displayWidth = 1000;
+	const int displayHeight = 1000;
+	const int maxParticles = 100;
+	std::random_device device;
+	std::mt19937 generator(device());
+	std::uniform_real_distribution<> posDistribution(50.0, 350.0);
+	std::uniform_real_distribution<> velDistribution(-1.0, 1.0);
 
-	CImg<float> img(600,600,1,3);
-	img.fill(0);
-	CImgDisplay disp(600,600,"Test display",0,false, false);
+	shared_ptr<Visualizer<dimension>> visualizer = make_shared<Visualizer3D>(
+		displayWidth,
+		displayHeight,
+		30
+	);
 
-	CImgList<float> primitives2d;
-	b1.draw(img,primitives2d);
-	b2.draw(img,primitives2d);
-	particle2d.draw(img,primitives2d);
-
-	img.display(disp);
-
-	/*
-	* 3D section
-	*/
-	Particle<3> particle3d(1,10,1);
-	particle3d.setPos(Eigen::Vector3d(80,40,60));
-	Box<3> box1(-100,-100,-100,100,100,100);
-// 	Box<3> box2(40,50,30,170,250,150);
-	CImg<float> scPoints;
-	CImgList<float> scPrimitives;
-	box1.draw(scPoints,scPrimitives);
-// 	box2.draw(scPoints,scPrimitives);
-	particle3d.draw(scPoints,scPrimitives);
-	const CImg<unsigned char> visu = CImg<unsigned char>(3,512,512,1).fill(230,230,255).permute_axes("yzcx");
-	visu.display_object3d("scene",scPoints,scPrimitives);
-
-	while(!disp.is_closed()){
-		disp.wait(50);
+	vector<Particle<dimension>*> particles;
+	for(int i = 0; i < maxParticles; ++i){
+		Particle<dimension>* particle = new Particle<dimension>(1,10,1);
+		particle
+			->setPos(
+				Eigen::Vector3d(
+					posDistribution(generator),
+					posDistribution(generator),
+					posDistribution(generator)
+				)
+			).setVel(
+				Eigen::Vector3d(
+					velDistribution(generator),
+					velDistribution(generator),
+					velDistribution(generator)
+				)
+			)
+		;
+		particles.emplace_back(particle);
+		visualizer->registerObject(particle);
 	}
+	Box<dimension>* box = new Box<dimension>(0,0,0,400,400,400);
+	visualizer->registerObject(box);
+
+	visualizer->start();
+
+	while(true){
+		for(int i = 0; i < maxParticles; ++i){
+			particles[i]->step(0.003);
+		}
+	}
+
+	visualizer->join();
+
 	return 0;
 }

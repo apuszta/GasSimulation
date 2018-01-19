@@ -1,5 +1,7 @@
 #include "../inc/Particle.h"
 
+#include <iostream>
+
 template<size_t Dim>
 Particle<Dim>::Particle(
 	const double weight,
@@ -70,8 +72,13 @@ void Particle<Dim>::draw3D(
 	const cimg_library::CImg<float> points3d = cimg_library::CImg<float>::sphere3d(
 		faces3d,
 		this->radius,
-		4
+		1
 	).shift_object3d(this->pos[0],this->pos[1],this->pos[2]);
 	
 	scenePoints.append_object3d(scenePrimitives,points3d,faces3d);
+}
+
+template<size_t Dim>
+void Particle<Dim>::step(const float dt){
+	this->pos += this->vel * dt;
 }

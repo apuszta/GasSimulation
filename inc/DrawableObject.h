@@ -1,10 +1,12 @@
-#ifndef DRAWABLE_H
-#define DRAWABLE_H
+#ifndef DRAWABLE_OBJECT_H
+#define DRAWABLE_OBJECT_H
+
+#include "DrawableObjectBase.h"
 
 #include <CImg.h>
 
 template<size_t N>
-class DrawableObject{
+class DrawableObject : public DrawableObjectBase{
 	static_assert(
 		N==2 || N==3,
 		"Object dimension can be either 2 or 3."
@@ -17,21 +19,6 @@ class DrawableObject{
 			cimg_library::CImg<float>& imagePoints,
 			cimg_library::CImgList<float>& primitives
 		) const;
-	protected:
-		/*
-		* Draw the 2D version.
-		*/
-		virtual void draw2D(
-			cimg_library::CImg<float>& image
-		) const = 0;
-
-		/*
-		* Draw the 3D version.
-		*/
-		virtual void draw3D(
-			cimg_library::CImg<float>& imagePoints,
-			cimg_library::CImgList<float>& primitives
-		) const = 0;
 };
 
 #endif
