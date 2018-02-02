@@ -1,4 +1,4 @@
-#include "../inc/DrawableObject.h"
+#include "../../inc/drawables/DrawableObject.h"
 
 template<>
 void DrawableObject<2>::draw(

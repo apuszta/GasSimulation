@@ -24,11 +24,15 @@ class Box : public DrawableObject<Dim>{
 			const double ymax,
 			const double zmax
 		);
+		Box(const Box<Dim>&);
 		~Box();
 
-// 		double getWeight() const;
-// 		double getRadius() const;
-// 		double getCharge() const;
+		double getXMin() const;
+		double getXMax() const;
+		double getYMin() const;
+		double getYMax() const;
+		double getZMin() const;
+		double getZMax() const;
 
 		void draw2D(cimg_library::CImg<float>&) const override;
 		void draw3D(cimg_library::CImg<float>&,cimg_library::CImgList<float>&) const override;

@@ -1,4 +1,4 @@
-#include "../inc/Particle.h"
+#include "../../inc/drawables/Particle.h"
 
 #include <iostream>
 
@@ -59,7 +59,7 @@ Particle<Dim>& Particle<Dim>::setVel(const Eigen::Vector3d v){
 
 template<size_t Dim>
 void Particle<Dim>::draw2D(cimg_library::CImg<float>& image) const{
-	unsigned char green[] = {0,215,0};
+	unsigned char green[] = {50*weight,215-50*weight,30*weight};
 	image.draw_circle(this->pos[0],this->pos[1],this->radius,green);
 }
 

@@ -1,7 +1,7 @@
 #ifndef INTERACTION_CALCULATOR_BASE_H
 #define INTERACTION_CALCULATOR_BASE_H
 
-#include "../DrawableObjectBase.h"
+#include "../drawables/DrawableObjectBase.h"
 
 class InteractionCalculatorBase{
 	public:

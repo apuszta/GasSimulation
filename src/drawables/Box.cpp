@@ -1,4 +1,4 @@
-#include "../inc/Box.h"
+#include "../../inc/drawables/Box.h"
 
 template<size_t Dim>
 Box<Dim>::Box(
@@ -20,8 +20,50 @@ Box<Dim>::Box(
 }
 
 template<size_t Dim>
+Box<Dim>::Box(const Box<Dim>& other) :
+	xmin(other.xmin),
+	xmax(other.xmax),
+	ymin(other.ymin),
+	ymax(other.ymax),
+	zmin(other.zmin),
+	zmax(other.zmax)
+{
+	// Intentionally NOOP
+}
+
+template<size_t Dim>
 Box<Dim>::~Box(){
 	// Intentionally NOOP
+}
+
+template<size_t Dim>
+double Box<Dim>::getXMin() const{
+	return xmin;
+}
+
+template<size_t Dim>
+double Box<Dim>::getXMax() const{
+	return xmax;
+}
+
+template<size_t Dim>
+double Box<Dim>::getYMin() const{
+	return ymin;
+}
+
+template<size_t Dim>
+double Box<Dim>::getYMax() const{
+	return ymax;
+}
+
+template<size_t Dim>
+double Box<Dim>::getZMin() const{
+	return zmin;
+}
+
+template<size_t Dim>
+double Box<Dim>::getZMax() const{
+	return zmax;
 }
 
 template<size_t Dim>

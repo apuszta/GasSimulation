@@ -5,8 +5,12 @@ void InteractionCalculator<ObjectType1,ObjectType2>::interact(
 	DrawableObjectBase* obj1,
 	DrawableObjectBase* obj2
 ){
-	this->interact(
-		static_cast<ObjectType1>(obj1),
-		static_cast<ObjectType2>(obj2)
-	);
+	auto obj1Cast = dynamic_cast<ObjectType1*>(obj1);
+	auto obj2Cast = dynamic_cast<ObjectType2*>(obj2);
+	if(obj1Cast != nullptr and obj2Cast != nullptr){
+		this->interact(
+			obj1Cast,
+			obj2Cast
+		);
+	}
 }

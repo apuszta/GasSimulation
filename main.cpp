@@ -1,7 +1,9 @@
-#include "inc/Particle.h"
-#include "inc/Box.h"
+#include "inc/drawables/Particle.h"
+#include "inc/drawables/Box.h"
 #include "inc/Visualizer2D.h"
 #include "inc/Visualizer3D.h"
+#include "inc/ForceApplier.h"
+#include "inc/interactions/CollisionCalculator.h"
 
 #include <iostream>
 #include <vector>
@@ -12,25 +14,25 @@ using namespace std;
 using namespace cimg_library;
 
 int main(){
-	const size_t dimension = 3;
+	const size_t dimension = 2;
 
-	const int displayWidth = 1000;
-	const int displayHeight = 1000;
-	const int maxParticles = 100;
+	const int displayWidth = 500;
+	const int displayHeight = 500;
+	const int maxParticles = 4;
 	std::random_device device;
 	std::mt19937 generator(device());
-	std::uniform_real_distribution<> posDistribution(50.0, 350.0);
-	std::uniform_real_distribution<> velDistribution(-1.0, 1.0);
+	std::uniform_real_distribution<> posDistribution(100.0, 400.0);
+	std::uniform_real_distribution<> velDistribution(-0.1, 0.1);
 
-	shared_ptr<Visualizer<dimension>> visualizer = make_shared<Visualizer3D>(
+	shared_ptr<Visualizer<dimension>> visualizer = make_shared<Visualizer2D>(
 		displayWidth,
 		displayHeight,
-		30
+		1
 	);
 
 	vector<Particle<dimension>*> particles;
 	for(int i = 0; i < maxParticles; ++i){
-		Particle<dimension>* particle = new Particle<dimension>(1,10,1);
+		Particle<dimension>* particle = new Particle<dimension>(i+1,10,1);
 		particle
 			->setPos(
 				Eigen::Vector3d(
@@ -49,17 +51,24 @@ int main(){
 		particles.emplace_back(particle);
 		visualizer->registerObject(particle);
 	}
-	Box<dimension>* box = new Box<dimension>(0,0,0,400,400,400);
+	Box<dimension>* box = new Box<dimension>(50,50,50,450,450,450);
 	visualizer->registerObject(box);
 
+	CollisionCalculator<Box<2>,Particle<2>>* collisionCalculator =
+		new CollisionCalculator<Box<2>,Particle<2>>()
+	;
+	auto forceApplier = make_shared<ForceApplier>(1.0);
+	forceApplier->registerInteraction(collisionCalculator);
+	forceApplier->registerObject(box);
+	forceApplier->registerObject(particles[0]);
+	forceApplier->registerObject(particles[1]);
+	forceApplier->registerObject(particles[2]);
+	forceApplier->registerObject(particles[3]);
+
 	visualizer->start();
+	forceApplier->start();
 
-	while(true){
-		for(int i = 0; i < maxParticles; ++i){
-			particles[i]->step(0.003);
-		}
-	}
-
+	forceApplier->join();
 	visualizer->join();
 
 	return 0;

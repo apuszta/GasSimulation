@@ -1,7 +1,7 @@
 #ifndef VISUALIZER_H
 #define VISUALIZER_H
 
-#include "DrawableObject.h"
+#include "drawables/DrawableObject.h"
 
 #include <CImg.h>
 #include <cpponnector/lib/cpponnector-header-only.hpp>
