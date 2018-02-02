@@ -4,6 +4,6 @@ My project is to simulate particles as they interact with each other (e.g. colli
 
 The following are required for the project to compile:
 - OpenCV (although it is not used yet)
-- Eigen (but probably I will drop it,it conflicts with CImg)
+- Eigen (but probably I will drop it, it conflicts with CImg)
 - CImg (https://github.com/dtschump/CImg for visualization)
 - C++Onnector
