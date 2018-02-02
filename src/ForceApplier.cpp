@@ -12,8 +12,8 @@ void ForceApplier::registerInteraction(InteractionCalculatorBase* icb){
 	this->interactions.emplace_back(icb);
 }
 
-void ForceApplier::registerObject(DrawableObjectBase* dob){
-	this->objects.emplace_back(dob);
+void ForceApplier::registerObject(Interactor* interactor){
+	this->objects.emplace_back(interactor);
 }
 
 void ForceApplier::applyInteractions(){

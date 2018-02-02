@@ -1,11 +1,18 @@
 #ifndef INTERACTION_CALCULATOR_BASE_H
 #define INTERACTION_CALCULATOR_BASE_H
 
-#include "../drawables/DrawableObjectBase.h"
+#include "../Interactor.h"
 
+/**
+** @brief 
+** @author Puszta "puszta" Adrián 
+**/
 class InteractionCalculatorBase{
 	public:
-		virtual void interact(DrawableObjectBase*,DrawableObjectBase*) = 0;
+		/**
+		** Provides a method to let the interactors interact.
+		**/
+		virtual void interact(Interactor*,Interactor*) = 0;
 };
 
 #endif

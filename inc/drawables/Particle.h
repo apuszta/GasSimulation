@@ -5,13 +5,18 @@
 #include <Eigen/Core>
 
 #include "DrawableObject.h"
+#include "../BilateralInteractor.h"
 
 /**
 ** @brief Particle class, holds all relevant information about it (weight,
 ** diameter, charge, etc.)
+** @author Puszta "puszta" Adrián
 **/
 template<size_t Dim>
-class Particle : public DrawableObject<Dim>{
+class Particle :
+	public DrawableObject<Dim>,
+	public BilateralInteractor
+{
 	private:
 		double weight;
 		double radius;

@@ -2,12 +2,17 @@
 #define BOX_H
 
 #include "DrawableObject.h"
+#include "../UnilateralInteractor.h"
 
 /**
-** @brief 
+** @brief A box object, which can be a container of other moving objects.
+** @author Puszta "puszta" Adrián
 **/
 template<size_t Dim>
-class Box : public DrawableObject<Dim>{
+class Box :
+	public DrawableObject<Dim>,
+	public UnilateralInteractor
+{
 	private:
 		double xmin;
 		double xmax;

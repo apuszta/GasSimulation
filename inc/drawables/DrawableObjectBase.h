@@ -3,6 +3,10 @@
 
 #include <CImg.h>
 
+/**
+** @brief Base class for all drawable objects.
+** @author Puszta "puszta" Adrián
+**/
 class DrawableObjectBase{
 	public:
 		/**
@@ -13,10 +17,6 @@ class DrawableObjectBase{
 			cimg_library::CImgList<float>& primitives
 		) const = 0;
 
-		/**
-		** 
-		**/
-		virtual void step(const float dt);
 	protected:
 		/*
 		* Draw the 2D version.

@@ -1,7 +1,7 @@
 #ifndef FORCE_APPLIER_H
 #define FORCE_APPLIER_H
 
-#include "drawables/DrawableObjectBase.h"
+#include "Interactor.h"
 #include "interactions/InteractionCalculatorBase.h"
 
 #include <cpponnector/lib/cpponnector-header-only.hpp>
@@ -11,12 +11,12 @@
 class ForceApplier : public cpponnector::LoopingThread{
 	private:
 		std::vector<InteractionCalculatorBase*> interactions;
-		std::vector<DrawableObjectBase*> objects;
+		std::vector<Interactor*> objects;
 		float dt;
 	public:
 		ForceApplier(const float dt);
 		void registerInteraction(InteractionCalculatorBase*);
-		void registerObject(DrawableObjectBase*);
+		void registerObject(Interactor*);
 	protected:
 		void loopCore() override;
 		void applyInteractions();

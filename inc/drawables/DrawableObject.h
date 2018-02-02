@@ -5,6 +5,10 @@
 
 #include <CImg.h>
 
+/**
+** @brief Templated base class for drawable objects.
+** @param N the dimension of the object
+**/
 template<size_t N>
 class DrawableObject : public DrawableObjectBase{
 	static_assert(
